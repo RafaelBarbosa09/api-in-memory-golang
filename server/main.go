@@ -1,22 +1,25 @@
-package main
+package server
 
 import (
-	"api-example/models"
+	"api-example/db"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	AlbumService "api-example/services/album"
 )
 
-var albums = []models.Album{
+var albums = []db.Album{
 	{ID: 1, Title: "The Dark Side of the Moon", Artist: "Pink Floyd", Price: 10.99},
 	{ID: 2, Title: "The Wall", Artist: "Pink Floyd", Price: 10.99},
 	{ID: 3, Title: "The Division Bell", Artist: "Pink Floyd", Price: 10.99},
 }
 
+albumService := AlbumService.Create()
+
 func main() {
 	router := gin.Default()
-	router.GET("/albums", getAlbums)
+	router.GET("/albums", )
 	router.GET("/albums/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
 	router.PUT("/albums/:id", updateAlbum)
@@ -29,7 +32,7 @@ func getAlbums(ctx *gin.Context) {
 }
 
 func postAlbums(ctx *gin.Context) {
-	var newAlbum models.Album
+	var newAlbum db.Album
 	if len(albums) <= 0 {
 		newAlbum.ID = 1
 	}
@@ -72,7 +75,7 @@ func updateAlbum(ctx *gin.Context) {
 		return
 	}
 
-	var updatedAlbum models.Album
+	var updatedAlbum db.Album
 	if err := ctx.BindJSON(&updatedAlbum); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
