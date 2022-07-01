@@ -52,9 +52,3 @@ func (a *AlbumService) DeleteAlbum(id int64) error {
 
 	return nil
 }
-
-func Create(repository repositories.AlbumRepository) *AlbumService {
-	return &AlbumService{
-		repository: repository,
-	}
-}
