@@ -81,3 +81,21 @@ func (a *AlbumHandler) HandleUpdateAlbum(ctx *gin.Context) {
 
 	ctx.IndentedJSON(http.StatusOK, albumUpdated)
 }
+
+func (a *AlbumHandler) HandleDeleteAlbum(ctx *gin.Context) {
+	idParam := ctx.Param("id")
+
+	id, err := strconv.ParseInt(idParam, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = a.albumService.DeleteAlbum(id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusOK, gin.H{"message": "album deleted"})
+}

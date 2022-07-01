@@ -44,9 +44,14 @@ func (a *AlbumService) UpdateAlbum(id int64, album models.Album) (models.Album, 
 	return *updatedAlbum, nil
 }
 
-// func (a *AlbumService) DeleteAlbum(id int64) error {
-// 	return a.repository.DeleteAlbum(id)
-// }
+func (a *AlbumService) DeleteAlbum(id int64) error {
+	err := a.repository.DeleteAlbum(id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func Create(repository repositories.AlbumRepository) *AlbumService {
 	return &AlbumService{

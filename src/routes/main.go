@@ -23,67 +23,6 @@ func (s *Server) routes() {
 	router.GET("/albums/:id", s.controller.HandleGetAlbumByID)
 	router.POST("/albums", s.controller.HandleSaveAlbum)
 	router.PUT("/albums/:id", s.controller.HandleUpdateAlbum)
-	// router.DELETE("/albums/:id", deleteAlbum)
+	router.DELETE("/albums/:id", s.controller.HandleDeleteAlbum)
 	router.Run("localhost:8080")
 }
-
-// func postAlbums(ctx *gin.Context) {
-// 	var newAlbum models.Album
-// 	if len(albums) <= 0 {
-// 		newAlbum.ID = 1
-// 	}
-
-// 	newAlbum.ID = albums[len(albums)-1].ID + 1
-
-// 	if err := ctx.BindJSON(&newAlbum); err != nil {
-// 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	albums = append(albums, newAlbum)
-// 	ctx.IndentedJSON(http.StatusOK, newAlbum)
-// }
-
-// func updateAlbum(ctx *gin.Context) {
-// 	idParam := ctx.Param("id")
-
-// 	id, err := strconv.ParseInt(idParam, 10, 64)
-// 	if err != nil {
-// 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	var updatedAlbum models.Album
-// 	if err := ctx.BindJSON(&updatedAlbum); err != nil {
-// 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	for index, album := range albums {
-// 		if album.ID == id {
-// 			updatedAlbum.ID = album.ID
-// 			albums[index] = updatedAlbum
-// 			ctx.IndentedJSON(http.StatusOK, updatedAlbum)
-// 			return
-// 		}
-// 	}
-// }
-
-// func deleteAlbum(ctx *gin.Context) {
-// 	idParam := ctx.Param("id")
-
-// 	id, err := strconv.ParseInt(idParam, 10, 64)
-// 	if err != nil {
-// 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	for index, album := range albums {
-// 		if album.ID == id {
-// 			albums = append(albums[:index], albums[index+1:]...)
-// 			ctx.IndentedJSON(http.StatusOK, gin.H{"message": "album deleted"})
-// 			return
-// 		}
-// 	}
-// 	ctx.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
-// }
