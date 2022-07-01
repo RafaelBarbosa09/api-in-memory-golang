@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"api-example/src/modules/albums/models"
 	"api-example/src/modules/albums/services"
 
 	"github.com/gin-gonic/gin"
@@ -39,4 +40,20 @@ func (a *AlbumHandler) HandleGetAlbumByID(ctx *gin.Context) {
 	}
 
 	ctx.IndentedJSON(http.StatusOK, album)
+}
+
+func (a *AlbumHandler) HandleSaveAlbum(ctx *gin.Context) {
+	var album models.Album
+	if err := ctx.BindJSON(&album); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	albumCreated, err := a.albumService.CreateAlbum(album)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusOK, albumCreated)
 }

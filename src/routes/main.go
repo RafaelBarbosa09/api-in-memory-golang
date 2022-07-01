@@ -21,15 +21,11 @@ func (s *Server) routes() {
 	router := gin.Default()
 	router.GET("/albums", s.controller.HandleGetAlbums)
 	router.GET("/albums/:id", s.controller.HandleGetAlbumByID)
-	// router.POST("/albums", postAlbums)
+	router.POST("/albums", s.controller.HandleSaveAlbum)
 	// router.PUT("/albums/:id", updateAlbum)
 	// router.DELETE("/albums/:id", deleteAlbum)
 	router.Run("localhost:8080")
 }
-
-// func getAlbums(ctx *gin.Context) {
-// 	ctx.IndentedJSON(http.StatusOK, albums)
-// }
 
 // func postAlbums(ctx *gin.Context) {
 // 	var newAlbum models.Album
@@ -46,24 +42,6 @@ func (s *Server) routes() {
 
 // 	albums = append(albums, newAlbum)
 // 	ctx.IndentedJSON(http.StatusOK, newAlbum)
-// }
-
-// func getAlbumByID(ctx *gin.Context) {
-// 	idParam := ctx.Param("id")
-
-// 	id, err := strconv.ParseInt(idParam, 10, 64)
-// 	if err != nil {
-// 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	for _, album := range albums {
-// 		if album.ID == id {
-// 			ctx.IndentedJSON(http.StatusOK, album)
-// 			return
-// 		}
-// 	}
-// 	ctx.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 // }
 
 // func updateAlbum(ctx *gin.Context) {

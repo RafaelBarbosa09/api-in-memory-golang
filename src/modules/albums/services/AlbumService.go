@@ -26,6 +26,15 @@ func (a *AlbumService) GetAlbumByID(id int64) (*models.Album, error) {
 	return album, nil
 }
 
+func (a *AlbumService) CreateAlbum(album models.Album) (*models.Album, error) {
+	newAlbum, err := a.repository.CreateAlbum(album)
+	if err != nil {
+		return nil, err
+	}
+
+	return newAlbum, nil
+}
+
 // func (a *AlbumService) CreateAlbum(album models.Album) (models.Album, error) {
 // 	return a.repository.CreateAlbum(album)
 // }

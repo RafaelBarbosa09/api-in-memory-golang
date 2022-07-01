@@ -9,26 +9,16 @@ type AlbumRepository struct {
 	Albums []models.Album
 }
 
-func (a *AlbumRepository) PopulateAlbums() []models.Album {
-	a.Albums = []models.Album{
-		{ID: 1, Title: "The Dark Side of the Moon", Artist: "Pink Floyd", Price: 10.99},
-		{ID: 2, Title: "The Wall", Artist: "Pink Floyd", Price: 10.99},
-		{ID: 3, Title: "The Division Bell", Artist: "Pink Floyd", Price: 10.99},
+func (a *AlbumRepository) GetAll() (*[]models.Album, error) {
+	if len(a.Albums) == 0 {
+		return &[]models.Album{}, nil
 	}
 
-	return a.Albums
-}
-
-func (a *AlbumRepository) GetAll() (*[]models.Album, error) {
-	albums := a.PopulateAlbums()
-
-	return &albums, nil
+	return &a.Albums, nil
 }
 
 func (a *AlbumRepository) GetAlbumByID(id int64) (*models.Album, error) {
-	albums := a.PopulateAlbums()
-
-	for _, album := range albums {
+	for _, album := range a.Albums {
 		if album.ID == id {
 			return &album, nil
 		}
@@ -38,21 +28,19 @@ func (a *AlbumRepository) GetAlbumByID(id int64) (*models.Album, error) {
 }
 
 func (a *AlbumRepository) CreateAlbum(album models.Album) (*models.Album, error) {
-	albums := a.PopulateAlbums()
+	albums := a.Albums
 
 	album.ID = int64(len(albums)) + 1
 
-	albums = append(albums, album)
+	a.Albums = append(albums, album)
 
 	return &album, nil
 }
 
 func (a *AlbumRepository) UpdateAlbum(id int64, album models.Album) (*models.Album, error) {
-	albums := a.PopulateAlbums()
-
-	for i, album := range albums {
+	for i, album := range a.Albums {
 		if album.ID == id {
-			albums[i] = album
+			a.Albums[i] = album
 			return &album, nil
 		}
 	}
@@ -61,11 +49,9 @@ func (a *AlbumRepository) UpdateAlbum(id int64, album models.Album) (*models.Alb
 }
 
 func (a *AlbumRepository) DeleteAlbum(id int64) error {
-	albums := a.PopulateAlbums()
-
-	for i, album := range albums {
+	for i, album := range a.Albums {
 		if album.ID == id {
-			albums = append(albums[:i], albums[i+1:]...)
+			a.Albums = append(a.Albums[:i], a.Albums[i+1:]...)
 			return nil
 		}
 	}
