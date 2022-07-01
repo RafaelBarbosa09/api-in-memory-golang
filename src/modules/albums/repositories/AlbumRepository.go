@@ -37,11 +37,12 @@ func (a *AlbumRepository) CreateAlbum(album models.Album) (*models.Album, error)
 	return &album, nil
 }
 
-func (a *AlbumRepository) UpdateAlbum(id int64, album models.Album) (*models.Album, error) {
+func (a *AlbumRepository) UpdateAlbum(id int64, updatedAlbum models.Album) (*models.Album, error) {
 	for i, album := range a.Albums {
 		if album.ID == id {
-			a.Albums[i] = album
-			return &album, nil
+			updatedAlbum.ID = album.ID
+			a.Albums[i] = updatedAlbum
+			return &updatedAlbum, nil
 		}
 	}
 

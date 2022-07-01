@@ -57,3 +57,27 @@ func (a *AlbumHandler) HandleSaveAlbum(ctx *gin.Context) {
 
 	ctx.IndentedJSON(http.StatusOK, albumCreated)
 }
+
+func (a *AlbumHandler) HandleUpdateAlbum(ctx *gin.Context) {
+	idParam := ctx.Param("id")
+
+	id, err := strconv.ParseInt(idParam, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	var album models.Album
+	if err := ctx.BindJSON(&album); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	albumUpdated, err := a.albumService.UpdateAlbum(id, album)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusOK, albumUpdated)
+}

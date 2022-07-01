@@ -35,12 +35,15 @@ func (a *AlbumService) CreateAlbum(album models.Album) (*models.Album, error) {
 	return newAlbum, nil
 }
 
-// func (a *AlbumService) CreateAlbum(album models.Album) (models.Album, error) {
-// 	return a.repository.CreateAlbum(album)
-// }
-// func (a *AlbumService) UpdateAlbum(id int64, album models.Album) (models.Album, error) {
-// 	return a.repository.UpdateAlbum(id, album)
-// }
+func (a *AlbumService) UpdateAlbum(id int64, album models.Album) (models.Album, error) {
+	updatedAlbum, err := a.repository.UpdateAlbum(id, album)
+	if err != nil {
+		return models.Album{}, err
+	}
+
+	return *updatedAlbum, nil
+}
+
 // func (a *AlbumService) DeleteAlbum(id int64) error {
 // 	return a.repository.DeleteAlbum(id)
 // }

@@ -22,7 +22,7 @@ func (s *Server) routes() {
 	router.GET("/albums", s.controller.HandleGetAlbums)
 	router.GET("/albums/:id", s.controller.HandleGetAlbumByID)
 	router.POST("/albums", s.controller.HandleSaveAlbum)
-	// router.PUT("/albums/:id", updateAlbum)
+	router.PUT("/albums/:id", s.controller.HandleUpdateAlbum)
 	// router.DELETE("/albums/:id", deleteAlbum)
 	router.Run("localhost:8080")
 }
