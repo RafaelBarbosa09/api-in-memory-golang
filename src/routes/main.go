@@ -20,7 +20,7 @@ func main() {
 func (s *Server) routes() {
 	router := gin.Default()
 	router.GET("/albums", s.controller.HandleGetAlbums)
-	// router.GET("/albums/:id", getAlbumByID)
+	router.GET("/albums/:id", s.controller.HandleGetAlbumByID)
 	// router.POST("/albums", postAlbums)
 	// router.PUT("/albums/:id", updateAlbum)
 	// router.DELETE("/albums/:id", deleteAlbum)

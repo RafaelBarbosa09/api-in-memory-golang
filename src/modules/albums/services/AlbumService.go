@@ -10,12 +10,22 @@ type AlbumService struct {
 }
 
 func (a *AlbumService) GetAlbums() ([]models.Album, error) {
-	return a.repository.GetAll()
+	albums, err := a.repository.GetAll()
+	if err != nil {
+		return nil, err
+	}
+	return *albums, nil
 }
 
-// func (a *AlbumService) GetAlbumByID(id int64) (models.Album, error) {
-// 	return a.repository.GetAlbumByID(id)
-// }
+func (a *AlbumService) GetAlbumByID(id int64) (*models.Album, error) {
+	album, err := a.repository.GetAlbumByID(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return album, nil
+}
+
 // func (a *AlbumService) CreateAlbum(album models.Album) (models.Album, error) {
 // 	return a.repository.CreateAlbum(album)
 // }

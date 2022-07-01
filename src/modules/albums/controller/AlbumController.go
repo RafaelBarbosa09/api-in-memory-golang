@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"api-example/src/modules/albums/services"
 
@@ -20,4 +21,22 @@ func (a *AlbumHandler) HandleGetAlbums(ctx *gin.Context) {
 	}
 
 	ctx.IndentedJSON(http.StatusOK, albums)
+}
+
+func (a *AlbumHandler) HandleGetAlbumByID(ctx *gin.Context) {
+	idParam := ctx.Param("id")
+
+	id, err := strconv.ParseInt(idParam, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	album, err := a.albumService.GetAlbumByID(id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusOK, album)
 }
