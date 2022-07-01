@@ -1,15 +1,15 @@
-package handlers
+package controller
 
 import (
 	"net/http"
 
-	"api-example/services/album"
+	"api-example/src/modules/albums/services"
 
 	"github.com/gin-gonic/gin"
 )
 
 type AlbumHandler struct {
-	albumService album.Service
+	albumService services.AlbumService
 }
 
 func (a *AlbumHandler) HandleGetAlbums(ctx *gin.Context) {
