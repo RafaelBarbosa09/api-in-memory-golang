@@ -1,23 +1,23 @@
 package repositories
 
 import (
-	"api-example/src/modules/albums/models"
+	"api-example/internal/entities"
 	"errors"
 )
 
 type AlbumRepository struct {
-	Albums []models.Album
+	Albums []entities.Album
 }
 
-func (a *AlbumRepository) GetAll() (*[]models.Album, error) {
+func (a *AlbumRepository) GetAll() ([]entities.Album, error) {
 	if len(a.Albums) == 0 {
-		return &[]models.Album{}, nil
+		return []entities.Album{}, nil
 	}
 
-	return &a.Albums, nil
+	return a.Albums, nil
 }
 
-func (a *AlbumRepository) GetAlbumByID(id int64) (*models.Album, error) {
+func (a *AlbumRepository) GetAlbumByID(id int64) (*entities.Album, error) {
 	for _, album := range a.Albums {
 		if album.ID == id {
 			return &album, nil
@@ -27,7 +27,7 @@ func (a *AlbumRepository) GetAlbumByID(id int64) (*models.Album, error) {
 	return nil, errors.New("album not found")
 }
 
-func (a *AlbumRepository) CreateAlbum(album models.Album) (*models.Album, error) {
+func (a *AlbumRepository) CreateAlbum(album entities.Album) (*entities.Album, error) {
 	albums := a.Albums
 
 	album.ID = int64(len(albums)) + 1
@@ -37,7 +37,7 @@ func (a *AlbumRepository) CreateAlbum(album models.Album) (*models.Album, error)
 	return &album, nil
 }
 
-func (a *AlbumRepository) UpdateAlbum(id int64, updatedAlbum models.Album) (*models.Album, error) {
+func (a *AlbumRepository) UpdateAlbum(id int64, updatedAlbum entities.Album) (*entities.Album, error) {
 	for i, album := range a.Albums {
 		if album.ID == id {
 			updatedAlbum.ID = album.ID

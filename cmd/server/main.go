@@ -1,7 +1,7 @@
 package main
 
 import (
-	"api-example/src/modules/albums/controller"
+	"api-example/internal/controller"
 
 	"github.com/gin-gonic/gin"
 )
