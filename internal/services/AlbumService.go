@@ -1,23 +1,23 @@
 package services
 
 import (
-	"api-example/src/modules/albums/models"
-	"api-example/src/modules/albums/repositories"
+	"api-example/internal/entities"
+	"api-example/internal/repositories"
 )
 
 type AlbumService struct {
 	repository repositories.AlbumRepository
 }
 
-func (a *AlbumService) GetAlbums() ([]models.Album, error) {
+func (a *AlbumService) GetAlbums() ([]entities.Album, error) {
 	albums, err := a.repository.GetAll()
 	if err != nil {
 		return nil, err
 	}
-	return *albums, nil
+	return albums, nil
 }
 
-func (a *AlbumService) GetAlbumByID(id int64) (*models.Album, error) {
+func (a *AlbumService) GetAlbumByID(id int64) (*entities.Album, error) {
 	album, err := a.repository.GetAlbumByID(id)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (a *AlbumService) GetAlbumByID(id int64) (*models.Album, error) {
 	return album, nil
 }
 
-func (a *AlbumService) CreateAlbum(album models.Album) (*models.Album, error) {
+func (a *AlbumService) CreateAlbum(album entities.Album) (*entities.Album, error) {
 	newAlbum, err := a.repository.CreateAlbum(album)
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func (a *AlbumService) CreateAlbum(album models.Album) (*models.Album, error) {
 	return newAlbum, nil
 }
 
-func (a *AlbumService) UpdateAlbum(id int64, album models.Album) (*models.Album, error) {
+func (a *AlbumService) UpdateAlbum(id int64, album entities.Album) (*entities.Album, error) {
 	updatedAlbum, err := a.repository.UpdateAlbum(id, album)
 	if err != nil {
 		return nil, err
