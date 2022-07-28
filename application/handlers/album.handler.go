@@ -1,11 +1,10 @@
 package controller
 
 import (
+	"api-example/domain/models"
+	"api-example/domain/services"
 	"net/http"
 	"strconv"
-
-	"api-example/src/modules/albums/models"
-	"api-example/src/modules/albums/services"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"api-example/src/modules/albums/models"
+	"api-example/domain/models"
 	"errors"
 )
 

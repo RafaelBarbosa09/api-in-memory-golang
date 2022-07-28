@@ -1,8 +1,8 @@
 package services
 
 import (
-	"api-example/src/modules/albums/models"
-	"api-example/src/modules/albums/repositories"
+	"api-example/domain/models"
+	"api-example/infrastructure/repositories"
 )
 
 type AlbumService struct {
