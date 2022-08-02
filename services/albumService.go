@@ -1,12 +1,12 @@
 package services
 
 import (
-	"api-example/domain/models"
-	"api-example/infrastructure/repositories"
+	"api-example/core/models"
+	"api-example/datasources/database"
 )
 
 type AlbumService struct {
-	repository repositories.AlbumRepository
+	repository database.AlbumRepository
 }
 
 func (a *AlbumService) GetAlbums() ([]models.Album, error) {
@@ -45,8 +45,7 @@ func (a *AlbumService) UpdateAlbum(id int64, album models.Album) (*models.Album,
 }
 
 func (a *AlbumService) DeleteAlbum(id int64) error {
-	err := a.repository.DeleteAlbum(id)
-	if err != nil {
+	if err := a.repository.DeleteAlbum(id); err != nil {
 		return err
 	}
 

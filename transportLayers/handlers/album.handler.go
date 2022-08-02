@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"api-example/domain/models"
-	"api-example/domain/services"
+	"api-example/core/models"
+	"api-example/services"
 	"net/http"
 	"strconv"
 

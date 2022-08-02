@@ -1,12 +1,16 @@
-package repositories
+package database
 
 import (
-	"api-example/domain/models"
+	"api-example/core/models"
+	albumPort "api-example/ports"
 	"errors"
 )
 
+// implement interface IAlbumRepository
+
 type AlbumRepository struct {
-	Albums []models.Album
+	repository albumPort.AlbumPort
+	Albums     []models.Album
 }
 
 func (a *AlbumRepository) GetAll() (*[]models.Album, error) {

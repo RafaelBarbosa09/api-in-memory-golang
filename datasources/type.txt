@@ -1,0 +1,4 @@
+tudo que sai da apliccao 
+
+banco de dados
+topico kafka 

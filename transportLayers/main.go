@@ -1,7 +1,7 @@
 package main
 
 import (
-	handler "api-example/application/handlers"
+	handler "api-example/transportLayers/handlers"
 
 	"github.com/gin-gonic/gin"
 )
